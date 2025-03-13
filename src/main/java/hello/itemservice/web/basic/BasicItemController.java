@@ -40,12 +40,13 @@ public class BasicItemController {
         return "basic/editForm";
     }
 
-    @GetMapping("/{itemId}/edit")
-    public String edit(@PathVariable("itemId") Long itemId , Model model) {
-        Item item = itemRepository.findById(itemId);
-        model.addAttribute("item",item);
-        return "basic/editForm";
+    @PostMapping("/{itemId}/edit")
+    public String edit(@PathVariable("itemId") Long itemId , @ModelAttribute Item item) {
+        itemRepository.update(itemId, item);
+        return "redirect:/basic/items/{itemId}";
     }
+
+
 
         //테스트용 데이터 추가(디비 인서트 안하고 추가 하는 방법)
     @PostConstruct
